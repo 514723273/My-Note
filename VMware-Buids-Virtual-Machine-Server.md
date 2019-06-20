@@ -80,14 +80,57 @@ docker info
 sudo yum erase docker docker-common docker-client docker-compose
 ```
 
-## 5 docker 安装 MySQL
-
-```
-docker pull daocloud.io/library/mysql:5.7
-```
+## 5 docker 安装 Mysql
 
 参考 [Docker搭建MySQL服务](https://www.cnblogs.com/pwc1996/p/5425234.html)
 
-通过国内镜像daocloud.io/library库下载，下载速度快到感人！（否则 timeout ，下载失败）
+### 5.1 拉去 Mysql 镜像
 
-然后使用 Navicat 连接 MySQL 。
+通过国内镜像 daocloud.io/library 库下载（下载速度快到感人！）（否则 timeout ，下载失败）
+```
+docker pull daocloud.io/library/mysql:5.7
+```
+拉取成功后，使用 `sudo docker images` 查看。
+
+### 5.2 创建并启动一个 Mysql 容器
+
+```
+sudo docker run --name yqb-mysql -e MYSQL_ROOT_PASSWORD=123456 -p 3306:3306 -d mysql:5.7
+```
+
+（一定要指定版本 :5.7 ，不然 NaviCat 连接的时候，会报错，说是 需要提升 Mysql 版本。）
+
+- –name：给新创建的容器命名，此处命名为 yqb-mysql
+- -e：配置信息，此处配置 mysql 的 root 用户的登陆密码
+- -p：端口映射，此处映射主机 3306 端口到容器 yqb-mysql 的 3306 端口
+- -d：成功启动容器后输出容器的完整 ID
+- 最后一个 mysql:5.7 指的是 mysql 镜像名字
+
+查看容器运行状态 `sudo docker ps`
+
+### 5.3 使用本地 Navicat 连接 Mysql
+
+Navicat 下载：[Navicat for MySQL 安装和破解（完美）](https://blog.csdn.net/WYpersist/article/details/79834490)
+
+连接MySQL前需要防火墙开放端口或者关闭防火墙。（没有操作此步骤依旧可行）
+
+开放端口：
+```
+sudo firewall-cmd --add-port=3306/tcp
+```
+关闭防火墙：
+```
+sudo systemctl stop firewalld
+```
+
+使用 Navicat ，输入正确的 ip 端口 用户名 密码 即可连接成功。
+
+## 附录
+
+## docker 命令
+
+1. 查看所有容器（运行或者不运行） `docker ps -a`
+2. 停止容器 `docker stop id`
+   - 停止所有的 container `docker stop $(docker ps -a -q)`
+3. 删除容器 `docker rm id`
+   - 删除所有的停止容器 `docker rm $(docker ps -a -q)`
