@@ -125,6 +125,21 @@ sudo systemctl stop firewalld
 
 使用 Navicat ，输入正确的 ip 端口 用户名 密码 即可连接成功。
 
+### 5.4 docker 内使用 mysql
+
+```
+# 在容器 yqb-mysql 中开启一个交互模式的终端
+docker exec -ti XXX /bin/bash 
+```
+- XX  为启动的 mysql id
+- -t  分配一个伪终端
+- -i  即使没有附加也保持STDIN 打开
+
+其他操作就和平时的 mysql 一致。
+
+`exit` 退出 mysql ，再 `exit` 退出容器。 
+
+
 ## 附录
 
 ## docker 命令
