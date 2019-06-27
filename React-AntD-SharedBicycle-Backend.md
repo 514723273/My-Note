@@ -300,3 +300,25 @@ export default connect(mapStateToProps, mapDispatchToProps)(LeftNav);
 3. 通过 Provider 将 store 提供给所有子组件。
 4. 配置分支 reducer ，将其分配给总 reducer 。
 5. 子组件使用映射，使用 store 底下的属性和方法。
+
+# 5 注意事项
+
+## 5.1 使用calc()计算宽高（vw/vh）
+
+参考 [【CSS笔记】— 使用calc()计算宽高（vw/vh）](https://juejin.im/post/5c18d8e2f265da61407ed721)
+
+vw和vh是什么？
+
+vw、vh、vmin、vmax是一种视窗单位，也是相对单位。它相对的不是父节点或者页面的根节点。而是由视窗（Viewport）大小来决定的，单位 1，代表类似于 1%。
+
+视窗(Viewport)是你的浏览器实际显示内容的区域，换句话说是你的不包括工具栏和按钮的网页浏览器。
+具体描述如下：
+
+- vw：视窗宽度的百分比（1vw 代表视窗的宽度为 1%）
+- vh：视窗高度的百分比
+- vmin：取当前Vw和Vh中较小的那一个值
+- vmax：取当前Vw和Vh中较大的那一个值
+
+## 5.2 Flex 布局
+
+参考 [Flex 布局教程：语法篇](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)
