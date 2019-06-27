@@ -208,7 +208,9 @@ http-server -p 8001
 
 如果 访问 localhost:8080 则转发至 http://localhost:8001
 
-如果 访问 localhost:80880/api/ 则转发至 http://localhost:8000 ，此时设置了`proxy_set_header Host $host` ，设置请求头为 nginx 地址。
+如果 访问 localhost:80880/api/ 则转发至 http://localhost:8000 ，此时设置了`proxy_set_header Host $host` ，即**允许重新定义或添加字段传递给代理服务器的请求头**。
+
+[nginx](./img/nginx.png)
 
 ```
 # 注意键值对 没有冒号
