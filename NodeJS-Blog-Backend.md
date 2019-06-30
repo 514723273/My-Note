@@ -2,32 +2,32 @@
 
 ## 1 nodejs 介绍
 
-## 1.1 nodejs 和 js 的区别
+### 1.1 nodejs 和 js 的区别
 
-### 1.1.1 ECMAScript
+#### 1.1.1 ECMAScript
 
 - 不能操作 DOM ，不能监听 click 事件，不能发送 ajax 请求
 - 不能处理 http 请求，不能操作文件
 
 即，只有 ECMAScript ，几乎做不了任何实际的项目
 
-### 1.1.2 javascript
+#### 1.1.2 javascript
 
 - 使用 ECMAScript 语法规范，外加 Web API ，缺一不可
 - DOM 操作， BOM 操作，事件绑定， Ajax 等
 
 两者结合，即可完成浏览器端的任何操作
 
-### 1.1.3 nodejs
+#### 1.1.3 nodejs
 
 - 使用 ECMAScript 语法规范，外加 nodejs API ，缺一不可
 - 处理 http ，处理文件等，具体 参考 [Node.js v10.16.0 文档](http://nodejs.cn/api/)
 
 二者结合，即可完成 server 端的任何操作
 
-## 1.2 nodejs 处理 http 请求
+### 1.2 nodejs 处理 http 请求
 
-### 1.2.1 http 请求概述
+#### 1.2.1 http 请求概述
 
 从你在浏览器中输入域名，敲击回车，显示页面中，都经历了什么？
 
@@ -35,7 +35,7 @@
 2. server 接收到 http 请求，处理，并返回
 3. 客户端接收到返回数据，处理数据（如渲染页面，执行 js）
 
-### 1.2.2 nodejs 处理 get 请求
+#### 1.2.2 nodejs 处理 get 请求
 
 ```js
 const http = require('http');
@@ -59,7 +59,7 @@ server.listen(8000);
 console.log('OK');
 ```
 
-### 1.2.3 nodejs 处理 post 请求
+#### 1.2.3 nodejs 处理 post 请求
 
 ```js
 const http = require('http');
@@ -267,10 +267,356 @@ src/model/resModel 创建两个model，用于固定返回 success 和返回 erro
 
 src/config 新建 db.js 放置数据库的连接信息，根据不同的环境选择不同的配置。 `const env = process.env.NODE_ENV;`
 
+## 4 日志
+
+### 4.1 nodjs 基本文件操作
+
+```js
+const fs = require('fs');
+const path = require('path');
+
+const fileName = path.resolve(__dirname, 'data.txt');   // __dirname 表示当前目录
+```
 
 
+#### 4.1.1 读取文件
 
-### 临时笔记
+```js
+// 读取文件
+fs.readFile(fileName, (err, data) => {
+    if(err) {
+        console.error(err);
+        return;
+    }
+    // !!!问题：想象极端情况，如果一个文本 5g ，那这个是一次性读取， data 就是 5g 。撑爆内存。
+    console.log(data.toString());          
+})
+// data === <Buffer 31 32 33 0d 0a 34 35 36 0d 0a 37 38 39>
+// 分别对应           1  2  3    \n  4  5  6    \n  7  8  9
+// typeof data === object
+// data 是一个 二进制类型，需要转换为字符串 
+```
+
+#### 4.1.2 写入文件
+
+```js
+// 写入文件
+const content = "这是新写入的内容\n";
+const opt = {
+    flag: 'a'       // 追加写入
+}
+// 问题：每次都写入一行，这是一个很费时的操作。
+// 问题：如果一次性写入的 content 达到 5 个 g 。内存依旧撑爆。
+fs.writeFile(fileName, content, opt, (err) => {
+    if(err) {
+        console.error(err);
+        return;
+    }
+});
+```
+
+#### 4.1.3 判断文件是否存在
+
+```js
+// 判断文件是否存在
+fs.exists(fileName, exist => {
+    console.log('exist', exist);
+})
+```
+
+### 4.2 stream 介绍
+
+参考 [Exercise-Project/nodejs/stream-test/](https://github.com/514723273/Exercise-Project/tree/master/nodejs/stream-test)
+
+### 4.2 写日志
+
+```js
+const fs = require('fs');
+const path = require('path');
+
+const ACCESS_FILE_NAME = 'access.log';
+
+// 写日志（关键）
+const writeLog = (writeStream, log) => {
+    writeStream.write(log + '\n');
+}
+
+const createWriteStream = fileName => {
+    const fullFileName = path.resolve(__dirname, '../', '../', 'log', fileName);
+    return fs.createWriteStream(fullFileName);  // !!!创建写入该文件的流
+}
+
+const accessWriteStream = createWriteStream(ACCESS_FILE_NAME);
+const access = log => {
+    writeLog(accessWriteStream, log);
+}
+
+module.exports = {
+    access,
+}
+```
+
+### 4.3 拆分日志
+
+原因：日志内容慢慢积累，放在一个文件中不好处理
+
+做法：按时间划分日志文件，如 2019-02-10.access
+
+实现方式：linux 的 `crontab` 命令，即定时任务。
+
+#### 4.3.1 crontab
+
+1. 设置定时任务，格式 ***** command
+2. 将 access.log 拷贝并重命名为 2019-02-10.access.log
+3. 清空 access.log 文件，继续积累日志
+
+#### 4.3.2 copy.sh
+
+```
+#!/bin/sh
+
+cd 绝对路径
+cp access.log $(date +%Y-%m-%d).access.log # 复制
+echo "" > access.log #清空
+```
+
+### 4.4 分析日志
+
+#### 4.4.1 realine.js
+
+```js
+const fs = require('fs')
+const path = require('path')
+const readline = require('readline')
+
+const fullName = path.join(__dirname, '../', '../', 'logs', 'access.log')
+
+const readStream = fs.createReadStream(fullName)
+
+// 连接 readStream
+const rl = readline.createInterface({
+    input: readStream
+})
+
+let chromeNum = 0
+let sum = 0
+
+rl.on('line', (lineData) => {
+    if (!lineData) {
+        return
+    }
+
+    sum++
+
+    let arr = lineData.split('--')
+    // 统计 chrome 访问数量
+    if (arr[2] && arr[2].indexOf('Chrome') != -1) {
+        chromeNum++
+    }
+})
+
+rl.on('close', () => {
+    console.log('占比', chromeNum/sum)
+})
+```
+
+需要类似脚本，单独运行，而不是在整个程序中运行。
+```
+node src/utils/readline.js
+```
+
+## 5 安全
+
+- sql 注入：窃取数据库内容
+- XSS 攻击：窃取前端的 cookie 内容
+- 密码加密：保障用户信息安全（重要！）
+
+### 5.1 sql 注入
+
+攻击方式：输入一个 sql 片段，最终拼接成一段攻击代码
+
+预防措施：使用 mysql 的 escape 函数处理输入内容即可
+
+#### 5.1.1 实例
+
+原来 js 代码中是这样的，通过传入的 username 和 password 组装成 sql 语句，进行数据库查询。
+```js
+let sql = `select username, realname from users where username='${username}' and password='${password}'`
+```
+但是，如果账号输入为 `zhangsan'--`，密码随便输入。这样就相当于注释了后面的密码！所以可以直接登录！
+
+#### 5.1.2 mysql.escape
+
+使用该函数将所有需要组装的变量包起来。
+
+这个函数会将变量内的特殊字符转义，再加单引号。
+
+```js
+username = escape(username);
+password = escape(password);
+```
+
+### 5.2 XSS 攻击
+
+攻击方式：在页面展示内容中掺杂 js 代码，以获取网页信息
+
+预防措施：转换成 js 的特殊字符
+
+最需要被转换的字符（主要是防止生成 `<script>` 标签）：
+- `&` -> `&amp`;
+- `<` -> `&lt`;
+- `>` -> `&gt`;
+- `"` -> `&quot`;
+- `/` -> `&#x2F`;
+
+#### 5.2.1 例子
+
+如在新建博客中，写入标题的时候，输入 `<script>alert(document.cookie)</script>`
+
+```
+npm install xss --save
+```
+```js
+const title = xss(blogData.title);
+const content = xss(blogData.content);
+```
+
+### 5.3 密码加密
+
+```js
+// cryp.js
+const crypto = require('crypto');
+
+const SECRET_KEY = 'Kiyonami_1234%';
+
+// md5 加密
+const md5 = content => {
+    let md5 = crypto.createHash('md5');
+    return md5.update(content).digest('hex');
+}
+
+// 加密函数
+const genPassword = password => {
+    const str = `password=${password}&key=${SECRET_KEY}`;
+    return md5(str);
+}
+```
+
+## 6 express
+
+### 6.1 安装 express
+
+1. npm install express-generator -g
+2. express express-test
+3. npm install
+4. npm start
+
+### 6.2 express 中间件
+
+参考 [Exercise-Project/nodejs/express-test/app.js](https://github.com/514723273/Exercise-Project/blob/master/nodejs/express-test/app.js)
+
+```js
+/**
+ * 如果第一个参数不是路由，即默认根路由，等价于 app.use('/', (req, res, next) => ...)
+ *
+ * next 参数是一个函数，表示会执行下一个路由匹配的中间件
+ * 第二个函数参数(req, res, next) => {} 就是一个中间件，它符合 express 的一些规则而实现
+ */
+app.use('/', (req, res, next) => {});
+```
+
+### 6.3 express 处理登录
+
+使用 express-session 和 connect-redis ，简单方便。
+
+req.session 保存登录信息，登录校验做成 express 中间件
+
+#### 6.3.1 app.js 配置
+
+```js
+// app.js
+
+const session = require('express-session'); // 是一个函数
+const RedisStore = require('connect-redis')(session);   // 执行该函数，返回一个函数 （和 session 做连接
+
+const redisClient = require('./db/redis');
+const sessionStore = new RedisStore({
+    client: redisClient
+})  // （和 redis 做连接
+
+// 自动分配 cookie 存储 session
+// 取到的 session 自动赋值给 req.session
+// 所有的 session 默认存储在内存中
+app.use(session({
+    secret: 'Kiyonami_$#6743',      //密匙
+    cookie: {
+        // path: '/',          // 默认配置
+        // httpOnly: true,     // 默认配置
+        maxAge: 24 * 60 * 60 * 1000
+    }，
+    store：sessionStore         // 做配置 将 session 存储在 redis 中
+}))
+```
+
+#### 6.3.2 routes/user.js 基本不变
+
+```js
+// routes/user.js
+router.post('/login', (req, res, next) => {
+    const { username, password } = req.body;
+    const result = login(username, password);   // !!!因为内部执行 mysql 操作，所以需要异步
+    // 这里的 promise 不需要返回
+    return result.then(data => {
+        if(data.username) {
+            req.session.username = data.username;
+            req.session.realname = data.realname;
+            // redis.set(req.sessionId, req.session);  // 不需要这条语句，即自动赋值到 redis 中对应的 session
+            res.json(new SuccessModel());
+            return;
+        }
+        res.json(new ErrorModel('登录失败'));
+    })
+})
+```
+
+#### 6.3.3 middleware/loginCheck.js 判断是否已登录中间件
+
+```js
+const { ErrorModel } = require('../model/resModel');
+
+module.exports = (req, res, next) => {
+    if(req.session.username) {
+        next();
+        return;
+    }
+    res.json(new ErrorModel('未登录'));
+}
+```
+
+### 6.4 express morgan 日志
+
+```js
+const ENV = process.env.NODE_ENV;
+if(ENV !== 'production') {
+    // 开发环境 or 测试环境
+    app.use(logger('dev'));
+} else {
+    // 线上环境
+    const logFileName = path.join(__dirname, 'log', 'access.log');
+    const writeStream = fs.createWriteStream(logFileName, {
+        flag: 'a'
+    });
+    app.use(logger('combined', {
+        stream: writeStream     // !!! 关键。切换 stream ，默认为 process.stdout
+    }))
+}
+```
+
+### 6.5 express 内部原理
+
+参考 [514723273/my-express](https://github.com/514723273/my-express)
+
+## 临时笔记
 
 数据库的使用
 
