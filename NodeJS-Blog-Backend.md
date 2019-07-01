@@ -616,6 +616,136 @@ if(ENV !== 'production') {
 
 参考 [514723273/my-express](https://github.com/514723273/my-express)
 
+
+## 7 koa2
+
+### 7.1 async-await 语法介绍
+
+```js
+// async await 要点：
+// 相当于一个 promise 的语法糖
+// 1. await 后面可以追加 promise 对象，获取 resolve 的值
+// 2. await 必须包裹在 async 函数里
+// 3. async 函数执行返回的也是一个 promise 对象
+// 4. try-catch 获取 reject 的值
+async function readFileData() {
+    // 同步写法
+    try {
+        const aData = await getContentFile('a.json');
+        console.log('a data', aData);
+        const bData = await getContentFile(aData.next);
+        console.log('b data', bData);
+        const cData = await getContentFile(bData.next);
+        console.log('c data', cData);
+    } catch(err) {
+        console.log(err);
+    }
+}
+```
+
+### 7.2 介绍 koa2
+
+express 中间件是异步回调，koa2 原生支持 async/await 。
+
+express 虽然未过时，但是 koa2 肯定是未来趋势，现在有很多新开发的框架都是基于 koa2 。
+
+#### 7.2.1 koa2 脚手架
+
+- npm install koa-generator -g
+- koa2 koa2-test
+- npm install & npm run dev
+
+### 7.3 koa2 实现登录
+
+#### 7.3.1 实现 session
+
+安装依赖
+```
+npm i koa-generic-session koa-redis
+```
+
+#### 7.3.2 日志
+
+```
+npm i koa-morgan
+```
+
+## 8 上线与配置
+
+### 8.1 PM2 介绍
+
+安装 pm2
+```
+npm install pm2 -g
+pm2 --version
+```
+
+修改 package.json
+```
+"prd": "cross-env NODE_ENV=production pm2 start bin/www"
+```
+
+启动
+```
+npm run prd
+```
+
+### 8.2 常用命令
+
+- pm2 start ...
+- pm2 list
+- pm2 restart <AppName>
+- pm2 stop <AppName>
+- pm2 delete <AppName>
+- pm2 info <AppName>
+- pm2 log <AppName>
+- pm2 monit 监控 cpu 内存等信息
+
+### 8.3 进程守护
+
+node app.js 和 nodemon app.js 进程崩溃则不能访问
+
+pm2 遇到进程崩溃，会自动重启
+
+
+### 8.4 常用配置
+
+- 新建 PM2 配置文件
+- 修改 PM2 启动命令，重启
+- 访问 server ，检查日志文件的内容（日志记录是否生效）
+
+```json
+// pm2.conf.json
+
+{
+    "app": {
+        "name": "pm2-test-server",
+        "script": "app.js",
+        "watch": true,      // 修改代码后重启 最好 false
+        "ignore_watch": [
+            "node_modules",
+            "logs"
+        ],
+        "instances": 4,     // 进程数
+        "error_file": "logs/err.log",   // 错误日志输出目录
+        "out_file": "logs/out.log",     // 普通日志输出目录
+        "log_date_format": "YYYY-MM-DD HH:mm:ss”
+    }
+}
+```
+
+修改 package.json
+
+```
+"prd": "cross-env NODE_ENV=production pm2 start pm2.conf.json"
+```
+
+### 8.5 多进程
+
+多进程之间，内存无法共享
+
+多进程访问一个 redis ，实现数据共享
+
 ## 临时笔记
 
 数据库的使用
