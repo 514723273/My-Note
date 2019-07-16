@@ -297,3 +297,248 @@ overflow: visible
 - label[for] 和 id
 - 隐藏原生 input
 - :checked + label
+
+## 4 布局
+
+- 早期以 table 为主（简单
+- 后来以技巧性布局为主（难
+- 现在有 flexbox/grid（偏简单
+- 响应式布局是必备
+
+### 4.1 常用布局方法
+
+- table 表格布局
+- float 浮动 + margin
+- inline-block 布局
+- flexbox 布局
+
+### 4.2 表格布局
+
+html 排版与表格采用一样的形式，然后使用样式`display: table` `display: table-row` `display: table-cell`控制。
+
+举例：[table](./example/chapter4/03-table.html)
+
+### 4.3 盒模型
+
+![盒模型](../../img/盒模型.png)
+
+
+### 4.4 display/position
+
+!!!
+
+display：确定元素的显示类型
+- block：有独立宽高，会单独占据一行
+- inline：表现和文本相同，不会占据一行（不能设置宽高，设置了没用
+- inline-block：对内表现的像 bock ，可以有宽高；对外可以与其他元素排在同一行
+
+举例：[display](./example/chapter4/01-display.html)
+
+position：确定元素的位置
+- static：默认布局，按照文档流正常布局
+- relative：**相对于元素**本身做出偏移。不会改变它原本占据的空间（还在那占地方）（left top bottom right 控制，也适用以下三种
+- absolute：就会脱离文档流，相对于 最近的 absolute 或者 relative 的父元素来定位的。（一直找到 body 为止
+- fixed：脱离文档流,相对于可视区域固定的。（滚动、缩放，它的相对位置不会改变
+
+举例：[position](./example/chapter4/02-position.html)
+
+可以通过 z-index 属性来调整覆盖（position 为 relative absolute fixed 可以使用该属性）。
+
+
+### 4.5 flexbox 布局
+
+真正现代来布局的。但是并没有大规模使用，因为兼容性问题，老 ie 不支持。
+
+- 弹性盒子
+- 盒子本来就是并列的
+- 指定宽度即可
+
+举例：[flex](./example/chapter4/07-flex.html)
+
+主要 container 中使用 `display: flex;`，每个小块使用`flex:1`，表明占据比例。有多少个小块，就自动均分。
+
+### 4.6 float 布局
+
+- 元素“浮动”
+- 脱离文档流（不会占据空间
+- 但不脱离文本流（但是该块还是会把外边的文档给挤开的
+
+举例：[float](./example/chapter4/04-float.html)
+
+对具有float属性的元素自身的影响:
+- 形成“块”（BFC）（即使是 span 也可以设置宽高，这是 float 给予的
+- 位置尽量靠上（顶部（只要宽高足够
+- 位置尽量靠左（右）
+
+对兄弟的影响：
+- 上面贴非 float 元素
+- 旁边贴 float 元素
+- 不影响其他块级元素位置
+- 影响其他块级元素内部文本
+
+对父级元素的影响：
+- 从布局上“消失”
+- 高度塌陷
+
+### 4.7 inline-block
+
+- 像文本一样排 block 元素
+- 没有清楚浮动等问题
+- 需要处理间隙（就像文字间不管怎么样，总不可能连在一起，有间隙）（设置 container 的 font-size：0）（也是两个 div 中间的空行引起的）
+
+### 4.8 响应式设计和布局
+
+主要方法：
+- 隐藏 + 折行 + 自适应空间
+- rem / viewport / media query
+
+举例：[隐藏](./example/chapter4/09-responsive.html)
+举例：[折行](./example/chapter4/10-responsive.html)
+举例：[自适应空间](./example/chapter4/11-responsive.html)
+
+## 5 CSS 效果
+
+### 5.1 如何使用一个 div 画 XXX
+
+- box-shadow 无限投影
+- :: before
+- :: after
+
+### 5.2 如何产生不占空间的边框
+
+- box-shadow 不给模糊值即可
+- outline
+
+### 5.3 如何使用圆形元素（头像
+
+- border-radius: 50%
+
+### 5.4 如何实现 ios 图标的圆角
+
+clip-path: (svg)
+
+### 5.5 如何实现半圆、扇形等图形
+
+border-radius 组合：有无边框、边框粗细、圆角半径
+
+### 5.6 如何实现背景图居中显示/不重复/改变大小
+
+- background-position
+- background-repeat
+- background-size（cover/contain）
+
+### 5.7 如何平移/放大一个元素
+
+- transform：translateX(100px)
+- transform: scale(2)
+
+### 5.8 如何实现 3D 效果
+
+1. perspective: 500px;
+2. transform-style: preserve-3d;
+3. transform: translate rotate（transform：变化；transition：过渡（动画））
+
+## 6 CSS 动画
+
+### 6.1 CSS 中的动画类型
+
+- transition 补间动画
+- keyframe 关键帧动画
+- 逐帧动画
+
+### 6.2 补间动画
+
+只能计算一些线性变化，且要有 hover 之类的提供终值，触发补间动画，中间过程自动计算。
+
+- 位置--平移（left/right/margin/transform
+- 方位--旋转（transform
+- 大小--缩放（transform
+- 透明度（opacity
+- 其他--线性变化（transform
+
+`transition: width 1s, background 3s` 意思是：宽度发生改变时触发，动画时长一秒，背景发生改变时触发，动画时长三秒（二者时长可以不同步，即宽度变化完毕，颜色还在慢慢改变。
+
+需要触发：
+```js
+.container: hover {
+    width: 800px;
+    background: green;
+}
+```
+
+#### 6.2.1 transition-timing-function
+
+定义动画进度和时间的关系
+
+（ease 缓动）
+
+[制作特殊的动画进度](https://matthewlein.com/tools/ceaser)
+
+### 6.3 关键帧动画
+
+在 A->C 中，添加多个其他动画，A->B1->B2->C，相当于多个补间动画。
+
+与元素状态的变化无关。即不需要元素本身发生变化，不需要触发。（进入页面即触发
+
+有很多有趣的属性，定义更灵活。
+
+```
+.container{
+    width: 100px;
+    height: 100px;
+    background: red;
+    animation: run 1s linear;
+    /* animation-direction: reverse; */         // 反着播动画
+    /* animation-fill-mode: forwards; */        // 保持最后的结果，不要变回来了 （backwards 回到最初状态
+    animation-iteration-count: infinite;        // 无限循环
+    /* animation-play-state: paused; */
+}
+@keyframes run{
+    0%{
+        width: 100px;
+    }
+    50%{
+        width: 800px;
+    }
+    100%{
+        width: 100px;
+    }
+}
+```
+
+举例：[keyframe](./example/chapter6/02-keyframe.html)
+
+
+### 6.4 逐帧动画（特殊的关键帧动画）
+
+- 还是 keyframes 并没有另一套 api 。
+- 适用于无法补间计算的动画
+- 资源较大
+- 使用 steps()
+
+举例：[猎豹 run](./example/chapter6/03-animal.html)
+
+### 6.5 真题
+
+#### 6.5.1 CSS 动画的实现方式有几种
+
+- transition（过渡动画
+- keyframes(animation)（关键帧动画
+
+#### 6.5.2 过渡动画和关键帧动画的区别
+
+- 过渡动画需要有状态的改变
+- 关键帧动画不需要状态改变
+- 关键帧动画能控制更加精细
+
+#### 6.5.3 如何实现逐帧动画
+
+- 使用关键帧动画
+- 去掉补间（steps
+
+#### 6.5.4 CSS 动画的性能
+
+- 性能不坏
+- 部分情况下优于 js
+- 但 js 可以做到更好
+- 部分高危属性 box-shadow 等

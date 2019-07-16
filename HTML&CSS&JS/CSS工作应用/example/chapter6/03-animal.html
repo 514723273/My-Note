@@ -12,8 +12,9 @@
             border: 1px solid red;
             background: url(./animal.png) no-repeat;
             animation: run 1s infinite;
-            animation-timing-function: steps(1);
+            animation-timing-function: steps(1);    /*本来还是会自动补间，动画与预期不同，会鬼畜，所以需要去掉补间。使用 steps(1) 使每一帧只有一个关键帧过渡 */
         }
+        /* 不断变化所要展示的图片 */
         @keyframes run{
             0%{
                 background-position: 0 0;
