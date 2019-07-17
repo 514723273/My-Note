@@ -33,7 +33,7 @@
 - 利用缓存机制，尽可能使用缓存减少请求
 
 ## 3 项目目录
-
+ 
 - build: 放各种配置文件、脚本文件
 - client: 放所有前端项目的文件
 - dist：webpack 编译后的结果会输出在这
@@ -86,4 +86,59 @@ react-dom 是 React 专门为 web 端开发的渲染工具。
 - res.send 返回该替换后的文本结果。
 - 当文本被浏览器按照 html 解析时，发现`<script src=/public/app.xxx.js">`会继续向服务端请求该静态 js 文件。（由于服务端已经设置访问 /public url 的路由处理。 app.use('/public', express.static(path.join(__dirname, '../dist'))); 所以按需返回静态文件。
 
+### 4.4 总结
+
+1. 先 build 客户端文件，入口为 client/app.js（内容正常挂载和渲染组件）
+2. build 会输出 dist/app.xx.js index.html（分别因为 babel 编译和 html-webpack-plugin 插件）（index.html 中 `<script src="">`标签 src 向服务器发送请求 /public/app.xx.js）
+3. 再 build 服务端文件，入口为 client/server.entry.js（内容仅仅是导出 App 节点）
+4. build 会输出 dist/server.entry.js
+5. 然后新建 express 服务，设置路由。
+6. 用 fs 读取 dist/index.html。
+7. 引用 dist/server-entry ，调用 ReactSSR.renderToString 方法，解析出 html 节点文本 `<div data-reactroot="">This is app</div>`
+8. 最后采用字符串替换的方法，将节点挂载到 html `template.replace('<app></app>', appString)`
+
+### 5 项目开发时的常用配置
+
+webpack dev server
+
+通过 webpack 启动一个服务器 方便访问编译后的 html css js 。
+
+且所有文件都会放置在内存中，如果文件发生变化，就会自动重新编译，不需要手动 npm run build 。
+
+有任何代码更改，就会立即刷新页面。
+
+（要把 dist 目录删除，否则会读取 dist 目录下的文件内容。（因为它是保存在内存中的，根本就没有输出和用到该目录！）（相当于还是向服务器请求 /public/app.xxx.js 没有该文件））
+
+主要是使用了 webpack-dev-server 。设置了开发环境的配置。
+
+```js
+if(isDev) {
+    config.entry = {        // 开发环境下 更改 entry
+        app: [              // 所有文件打包到同一个文件
+            'react-hot-loader/patch',       // 官方做法
+            path.join(__dirname, '../client/app.js'), 
+        ]
+    }
+    config.devServer = {
+        host: '0.0.0.0',
+        port: '8888',
+        contentBase: path.join(__dirname, '../dist'),       // 服务启动的文件夹（编译后的静态文件存放的文件夹
+        hot: true,          // hot module replacement
+        overlay: {
+            errors: true,   // 浏览器只显示错误（不显示 warning）
+        },
+        publicPath: '/public',              // 因为 script 中的 /public 缘故，所以统一前面加 /public
+        historyApiFallback: {               // 404 所有请求都返回该页面
+            index: '/public/index.html'
+        }
+    };
+    config.plugins.push(new webpack.HotModuleReplacementPlugin());  // hot module replacement
+}
+```
+
+hot module replacement
+
+编辑后立即看到效果，无需刷新重新获取数据。（更进一步 刷都不刷新 直接显示最新）
+
+修改四个文件，均已在项目中标记。
 
