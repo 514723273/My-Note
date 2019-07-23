@@ -97,7 +97,9 @@ react-dom 是 React 专门为 web 端开发的渲染工具。
 7. 引用 dist/server-entry ，调用 ReactSSR.renderToString 方法，解析出 html 节点文本 `<div data-reactroot="">This is app</div>`
 8. 最后采用字符串替换的方法，将节点挂载到 html `template.replace('<app></app>', appString)`
 
-### 5 项目开发时的常用配置
+## 5 项目开发时的常用配置
+
+### 5.1 客户端实时更新页面
 
 webpack dev server
 
@@ -142,3 +144,119 @@ hot module replacement
 
 修改四个文件，均已在项目中标记。
 
+### 5.2 服务端实时渲染
+
+原代码中是读取 dist 目录下的 index.html 和 app.xx.js ，但是客户端在开发环境下使用实时渲染之后，不会生成这些文件，而是在内存。
+
+## 6 使用 eslint 和 editorconfig 规范代码
+
+eslint 配合 git ：为了最大程度控制每个人的规范，我们可以在 git commit 代码的时候，使用 git hook 调用 eslint 进行代码规范验证，不规范的代码无法提交到仓库（原本是可以不处理这些错误 提交的）。
+
+editorconfig 不同编辑器对文本的格式会有一定的区别，统一规范。（例如行末）
+
+### 6.1 eslint
+
+1. 新建 .eslintrc 文件：
+```js
+{
+  "parser": "babel-eslint",     // 解析 js 代码
+  "extends": "airbnb",
+  "env": {
+    "browser": true,  // 否则使用 window.xxx 会报错
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "defaultParams": true
+    }
+  },
+  "rules": {
+    "semi": [0],    // 结尾可以不用分号
+    "react/forbid-prop-types": [0],
+    "arrow-parens": [0],
+    "no-param-reassign": [0],
+    "arrow-body-style": [0],
+    "react/no-danger": [0],
+    "react/jsx-filename-extension": [0],
+    "import/no-named-as-default": [0],
+    "class-methods-use-this": [0]
+  }
+}
+```
+
+1. 安装 一堆插件（因为 airbnb），在 webpack 中添加规则：
+
+```js
+{
+    enforce: 'pre',     // 报错后 不执行
+    test: /.(js|jsx)$/,
+    loader: 'eslint-loader',
+    exclude: [
+        path.resolve(__dirname, '../node_moudules') // 屏蔽
+    ]
+}
+```
+
+### 6.2 editorconfig
+
+```js
+root = true     // 根目录
+
+[*]             // 所有文件
+charset = utf-8
+indent_style = space    // tab 样式
+indent_size = 2
+end_of_line = lf        // 结尾方式
+insert_final_newline = true         // 末尾添加空行
+trim_trailing_whitespace = true     // 删除行末空格
+```
+
+### 6.3 precommit
+
+安装插件，使在 git commit 前运行其他命令 precommit。
+```
+npm i husky -D
+```
+
+新建 .gitattributes：
+```
+# Automatically normalize line endings for all text-based files
+# http://git-scm.com/docs/gitattributes#_end_of_line_conversion
+* text=auto
+
+# For the following file types, normalize line endings to LF on
+# checkin and prevent conversion to CRLF when they are checked out
+# (this is required in order to prevent newline related issues like,
+# for example, after the build script is run)
+.*      text eol=lf
+*.css   text eol=lf
+*.html  text eol=lf
+*.js    text eol=lf
+*.json  text eol=lf
+*.md    text eol=lf
+*.sh    text eol=lf
+*.txt   text eol=lf
+*.xml   text eol=lf
+*.vue   text eol=lf
+```
+
+添加命令：
+```
+"lint": "eslint --ext .js --ext .jsx client/",      // client/ 目录
+"precommit": "npm run lint"     // git 钩子
+```
+
+## 7 项目基本目录结构
+
+- views：用于存放项目功能模块的页面，需要根据路由配置情况分割子集目录。
+- config: 存放一些配置目录，比如第三方类库引用，路由配置等。
+- store: 存放项目 store 相关的文件，包括数据获取的封装等。
+- components: 用于存放非业务组件，或者在多个业务间都要用到的共用组件。
+
+## 8 如何做前端路由
+
+HTML5 API 中的 history 能够让我们控制 url 跳转之后并不刷新页面，而是交给我们的 JS 代码进行相应操作。在 history api 出现之前，我们可以使用 hash 跳转实现。

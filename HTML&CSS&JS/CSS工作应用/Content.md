@@ -337,7 +337,7 @@ display：确定元素的显示类型
 position：确定元素的位置
 - static：默认布局，按照文档流正常布局
 - relative：**相对于元素**本身做出偏移。不会改变它原本占据的空间（还在那占地方）（left top bottom right 控制，也适用以下三种
-- absolute：就会脱离文档流，相对于 最近的 absolute 或者 relative 的父元素来定位的。（一直找到 body 为止
+- absolute：就会脱离文档流，相对于 最近的 absolute 或者 relative 或者 fixed 的父元素来定位的。（一直找到 body 为止
 - fixed：脱离文档流,相对于可视区域固定的。（滚动、缩放，它的相对位置不会改变
 
 举例：[position](./example/chapter4/02-position.html)
