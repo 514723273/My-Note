@@ -1,7 +1,7 @@
 # My Note
 
 - React
-  1. [仿简书项目实践](./React/仿简书项目/Content.md)
+  1. [初识React](./React/初识React.md)
   2. [React 前端架构](./React/React前端架构.md)
 - Nodejs
   1. [原生再框架搭建简易博客项目过程](./Nodejs/原生再框架搭建简易博客项目过程.md)
@@ -12,4 +12,4 @@
 - English
   1. [口语](./English/口语.md)
 - Other
-  1. [虚拟机搭建服务器](./其他/虚拟机搭建服务器.md)
+  1. [虚拟机搭建服务器](./Other/虚拟机搭建服务器.md)
