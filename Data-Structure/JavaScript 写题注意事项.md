@@ -48,10 +48,34 @@ const gcd = (a, b) => {
 [漫画算法：辗转相除法是什么鬼？（小灰深入了解）](https://zhuanlan.zhihu.com/p/31824895)
 [辗转相除法（YouTube 解说）](https://www.youtube.com/watch?v=fGesPF3QA1U&list=PLg7Seqwc_Znvzr1H69PTVgBpnMYmnjn1W&index=3)
 
-## 3 字符串 转化为 数字
+
+## 易忘小方法
+
+### 字符串 转化为 数字
 
 ```js
 // 将 二进制字符串 转化为 十进制数字
 parseInt('0110', 2);            // 6
 typeof parseInt('0110', 2);     // "number"
 ```
+
+### JavaScript 字符与 ASCII 编码的转换
+
+字符 → ASCII 码：`StringValue.charCodeAt()`
+
+ASCII 码 → 字符：`String.fromCharCode(asciiValue)`
+
+
+
+## 特殊字符
+
+### 最大正整数表示
+
+```js
+Number.MAX_SAFE_INTEGER     // 9007199254740991 16位     // Math.pow(2, 53) - 1;
+
+0x7fffffff                  // 最大 int
+```
+
+### 256 个 ASCII
+
