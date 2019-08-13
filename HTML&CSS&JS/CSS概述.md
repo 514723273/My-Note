@@ -140,7 +140,7 @@ Cascading Style Sheet
 
 #### 2.2.3 举例
 
-[selector-priority](./example/chapter3/selector-priority.html)
+[selector-priority](https://github.com/514723273/Exercise-Project/blob/master/html%26css/CSS概述例子/chapter3/selector-priority.html)
 
 ### 解析方式和性能
 
@@ -185,7 +185,7 @@ Cascading Style Sheet
 - 网络字体、自定义字体
 - iconfont
 
-举例：[fonts](./example/chapter3/fonts.html)
+举例：[fonts](https://github.com/514723273/Exercise-Project/blob/master/html%26css/CSS概述例子/chapter3/fonts.html)
 
 ### 3.2 行高
 
@@ -197,7 +197,7 @@ Cascading Style Sheet
 
 line-height 会决定上下多余的宽度 会撑起外边的盒子（line-box）。
 
-举例：[inline](./example/chapter3/inline.html)
+举例：[inline](https://github.com/514723273/Exercise-Project/blob/master/html%26css/CSS概述例子/chapter3/inline.html)
 
 #### 3.2.2 行高相关的现象和方案
 
@@ -207,7 +207,7 @@ vertical-align 决定对齐方式，针对字体的线而言。默认是基线ba
 
 !!!图片 3px 缝隙问题。解决办法：设置对齐方式： vertical-align: bottom
 
-举例：[line-height](./example/chapter3/line-height.html)
+举例：[line-height](https://github.com/514723273/Exercise-Project/blob/master/html%26css/CSS概述例子/chapter3/line-height.html)
 
 
 ### 3.3 背景
@@ -243,9 +243,9 @@ vertical-align 决定对齐方式，针对字体的线而言。默认是基线ba
 
 #### 3.3.6 举例
 
-[background](./example/chapter3/background.html)
+[background](https://github.com/514723273/Exercise-Project/blob/master/html%26css/CSS概述例子/chapter3/background.html)
 
-[background-image](./example/chapter3/background-image.html)
+[background-image](https://github.com/514723273/Exercise-Project/blob/master/html%26css/CSS概述例子/chapter3/background-image.html)
 
 ### 3.4 边框
 
@@ -255,7 +255,7 @@ vertical-align 决定对齐方式，针对字体的线而言。默认是基线ba
 
 边框衔接（三角形）
 
-举例：[border](./example/chapter3/border.html)
+举例：[border](https://github.com/514723273/Exercise-Project/blob/master/html%26css/CSS概述例子/chapter3/border.html)
 
 ### 3.5 滚动
 
@@ -316,7 +316,7 @@ overflow: visible
 
 html 排版与表格采用一样的形式，然后使用样式`display: table` `display: table-row` `display: table-cell`控制。
 
-举例：[table](./example/chapter4/03-table.html)
+举例：[table](https://github.com/514723273/Exercise-Project/blob/master/html%26css/CSS概述例子/chapter4/03-table.html)
 
 ### 4.3 盒模型
 
@@ -332,7 +332,7 @@ display：确定元素的显示类型
 - inline：表现和文本相同，不会占据一行（不能设置宽高，设置了没用
 - inline-block：对内表现的像 bock ，可以有宽高；对外可以与其他元素排在同一行
 
-举例：[display](./example/chapter4/01-display.html)
+举例：[display](https://github.com/514723273/Exercise-Project/blob/master/html%26css/CSS概述例子/chapter4/01-display.html)
 
 position：确定元素的位置
 - static：默认布局，按照文档流正常布局
@@ -340,7 +340,7 @@ position：确定元素的位置
 - absolute：就会脱离文档流，相对于 最近的 absolute 或者 relative 或者 fixed 的父元素来定位的。（一直找到 body 为止
 - fixed：脱离文档流,相对于可视区域固定的。（滚动、缩放，它的相对位置不会改变
 
-举例：[position](./example/chapter4/02-position.html)
+举例：[position](https://github.com/514723273/Exercise-Project/blob/master/html%26css/CSS概述例子/chapter4/02-position.html)
 
 可以通过 z-index 属性来调整覆盖（position 为 relative absolute fixed 可以使用该属性）。
 
@@ -353,7 +353,7 @@ position：确定元素的位置
 - 盒子本来就是并列的
 - 指定宽度即可
 
-举例：[flex](./example/chapter4/07-flex.html)
+举例：[flex](https://github.com/514723273/Exercise-Project/blob/master/html%26css/CSS概述例子/chapter4/07-flex.html)
 
 主要 container 中使用 `display: flex;`，每个小块使用`flex:1`，表明占据比例。有多少个小块，就自动均分。
 
@@ -363,7 +363,7 @@ position：确定元素的位置
 - 脱离文档流（不会占据空间
 - 但不脱离文本流（但是该块还是会把外边的文档给挤开的
 
-举例：[float](./example/chapter4/04-float.html)
+举例：[float](https://github.com/514723273/Exercise-Project/blob/master/html%26css/CSS概述例子/chapter4/04-float.html)
 
 对具有float属性的元素自身的影响:
 - 形成“块”（BFC）（即使是 span 也可以设置宽高，这是 float 给予的
@@ -392,9 +392,9 @@ position：确定元素的位置
 - 隐藏 + 折行 + 自适应空间
 - rem / viewport / media query
 
-举例：[隐藏](./example/chapter4/09-responsive.html)
-举例：[折行](./example/chapter4/10-responsive.html)
-举例：[自适应空间](./example/chapter4/11-responsive.html)
+举例：[隐藏](https://github.com/514723273/Exercise-Project/blob/master/html%26css/CSS概述例子/chapter4/09-responsive.html)
+举例：[折行](https://github.com/514723273/Exercise-Project/blob/master/html%26css/CSS概述例子/chapter4/10-responsive.html)
+举例：[自适应空间](https://github.com/514723273/Exercise-Project/blob/master/html%26css/CSS概述例子/chapter4/11-responsive.html)
 
 ## 5 CSS 效果
 
@@ -506,7 +506,7 @@ border-radius 组合：有无边框、边框粗细、圆角半径
 }
 ```
 
-举例：[keyframe](./example/chapter6/02-keyframe.html)
+举例：[keyframe](https://github.com/514723273/Exercise-Project/blob/master/html%26css/CSS概述例子/chapter6/02-keyframe.html)
 
 
 ### 6.4 逐帧动画（特殊的关键帧动画）
@@ -516,7 +516,7 @@ border-radius 组合：有无边框、边框粗细、圆角半径
 - 资源较大
 - 使用 steps()
 
-举例：[猎豹 run](./example/chapter6/03-animal.html)
+举例：[猎豹 run](https://github.com/514723273/Exercise-Project/blob/master/html%26css/CSS概述例子/chapter6/03-animal.html)
 
 ### 6.5 真题
 
