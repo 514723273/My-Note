@@ -101,7 +101,7 @@ Cascading Style Sheet
 
 美 [kæˈskeɪdɪŋ]
 
-![CSS幻灯片类比](../../img/CSS幻灯片类比.png)
+![CSS幻灯片类比](https://raw.githubusercontent.com/514723273/.md-Pictures/master/CSS幻灯片类比.png)
 
 ### 2.1 基本规则
 
@@ -191,7 +191,7 @@ Cascading Style Sheet
 
 #### 3.2.1 行高的构成
 
-![三线说明](../../img/三线说明.png)
+![三线说明](https://raw.githubusercontent.com/514723273/.md-Pictures/master/三线说明.png)
 
 每个盒子渲染高度还是相同的。（由字体决定
 
@@ -261,7 +261,7 @@ vertical-align 决定对齐方式，针对字体的线而言。默认是基线ba
 
 overflow: visible
 
-![滚动条属性](../../img/滚动条属性.png)
+![滚动条属性](https://raw.githubusercontent.com/514723273/.md-Pictures/master/滚动条属性.png)
 
 ### 3.6 文字折行
 
@@ -320,7 +320,7 @@ html 排版与表格采用一样的形式，然后使用样式`display: table` `
 
 ### 4.3 盒模型
 
-![盒模型](../../img/盒模型.png)
+![盒模型](https://raw.githubusercontent.com/514723273/.md-Pictures/master/盒模型.png)
 
 
 ### 4.4 display/position
