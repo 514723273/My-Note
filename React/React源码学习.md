@@ -1,11 +1,11 @@
 react-16.8.4
 
-# React.createElement 过程
+## 1 React.createElement 过程
 
 1. createElement(type, config, children) type 无变化，处理 config ，从中提取 key、ref、self、source，并封装出 prop。最后调用下面函数。
 2. ReactElement(type, key, ref, self, source, owner, props)
 
-## JSX 到 JavaScript 转换 万恶开头
+### JSX 到 JavaScript 转换 万恶开头
 
 ```js
 function Comp() {
@@ -37,7 +37,7 @@ React.createElement(
 );
 ```
 
-## packages/react/src/React.js 框架总入口
+### 1.1 packages/react/src/React.js 框架总入口
 
 ```js
 const React = {
@@ -46,7 +46,7 @@ const React = {
 
 ```
 
-## pakages/react/src/ReactElement.js createElement(type, config, children)
+### 1.2 pakages/react/src/ReactElement.js createElement(type, config, children)
 ```js
 import ReactCurrentOwner from './ReactCurrentOwner';
 
@@ -165,7 +165,7 @@ export function createElement(type, config, children) {
 }
 ```
 
-##
+### 1.3 pakages/react/src/ReactElement.js ReactElement(type, key, ref, self, source, owner, props)
 
 ```js
 import {REACT_ELEMENT_TYPE} from 'shared/ReactSymbols';   // Symbol
@@ -194,3 +194,156 @@ const ReactElement = function(type, key, ref, self, source, owner, props) {
   return element;
 };
 ```
+
+### 1.4 pakages/react/src/ReactBaseClasses.js Component(props, context, updater)
+
+```js
+const emptyObject = {};
+
+function Component(props, context, updater) {
+  this.props = props;
+  this.context = context;
+  // If a component has string refs, we will assign a different object later.
+  this.refs = emptyObject;
+  // We initialize the default updater but the real one gets injected by the
+  // renderer.
+  this.updater = updater || ReactNoopUpdateQueue;
+}
+
+Component.prototype.isReactComponent = {};
+
+// setState 只是用来调用 react-dom 里面的函数，并无其他作用！
+Component.prototype.setState = function(partialState, callback) {
+  // 删去 invariant(...); 只是一个提醒
+  this.updater.enqueueSetState(this, partialState, callback, 'setState');   // 这并不是 react 中的，而是 react-dom 中的（因为不同平台
+};
+
+// 强制更新
+Component.prototype.forceUpdate = function(callback) {
+  this.updater.enqueueForceUpdate(this, callback, 'forceUpdate');
+};
+
+// 很简短，生命周期也没有。
+```
+
+### 1.5 pakages/react/src/ReactBaseClasses.js PureComponent(props, context, updater)
+
+```js
+function ComponentDummy() {}
+ComponentDummy.prototype = Component.prototype;
+
+// 和 Component 一模一样
+function PureComponent(props, context, updater) {
+  this.props = props;
+  this.context = context;
+  // If a component has string refs, we will assign a different object later.
+  this.refs = emptyObject;
+  this.updater = updater || ReactNoopUpdateQueue;
+}
+
+// 继承 Component
+const pureComponentPrototype = (PureComponent.prototype = new ComponentDummy());
+pureComponentPrototype.constructor = PureComponent;
+// 避免对这些方法进行额外的原型跳转。
+Object.assign(pureComponentPrototype, Component.prototype);
+// 标识，之后在 react-dom 更新的时候会判断是不是一个 purecomponent
+pureComponentPrototype.isPureReactComponent = true;
+
+
+// 整个文件就导出这两个类
+export {Component, PureComponent};
+```
+
+### 1.6 packages\react\src\ReactCreateRef.js createRef()
+
+非常简单，只是返回一个对象，存有疑问，如何挂载属性和使用 Ref 。
+
+```js
+import type {RefObject} from 'shared/ReactTypes';
+
+// an immutable object with a single mutable value
+export function createRef(): RefObject {
+  const refObject = {
+    current: null,
+  };
+  if (__DEV__) {
+    Object.seal(refObject);
+  }
+  return refObject;
+}
+``` 
+
+### 1.7 packages\react\src\ReactContext.js createContext(defaultValue, calculateChangedBits)
+
+```js
+// 两个参数 defaultValue calculateChangedBits
+export function createContext<T>(
+  defaultValue: T,
+  calculateChangedBits: ?(a: T, b: T) => number,
+): ReactContext<T> {
+  // 如果 calculateChangedBits 为 undefined ，则置为 null
+  if (calculateChangedBits === undefined) {
+    calculateChangedBits = null;
+  } else {
+    // 删去 __DEV__ 代码
+    }
+  }
+
+  // 定义 context 对象
+  const context: ReactContext<T> = {
+    $$typeof: REACT_CONTEXT_TYPE,
+    _calculateChangedBits: calculateChangedBits,
+    _currentValue: defaultValue,
+    _currentValue2: defaultValue,
+    _threadCount: 0,
+    Provider: (null: any),
+    Consumer: (null: any),
+    // 删去注解
+  };
+
+  context.Provider = {
+    $$typeof: REACT_PROVIDER_TYPE,
+    _context: context,    // 将 context 挂载到 context.Provider.__context
+  };
+
+  // 删去 __DEV__ 代码
+
+  if (__DEV__) {
+    // 删去 __DEV__ 代码
+  } else {
+    context.Consumer = context;   // 将 context 直接挂载到 context.Consumer
+  }
+
+  // 删去 __DEV__ 代码
+
+  return context;
+}
+```
+
+## 2 React中的更新
+
+- ReactDOM.render || hydrate
+- setState
+- forceUpdate
+
+### 2.1 ReactDOM.render
+
+1. 创建 ReactRoot
+2. 创建 FiberRoot 和 RootFiber
+3. 创建更新
+
+#### 2.1.1 packages\react-dom\src\client\ReactDOM.js
+
+## 3 Fiber Scheduler
+
+## 4 各类组件的 Update
+
+## 5 完成节点任务
+
+## 6 commitRoots
+
+## 7 功能详解：基础
+
+## 8 suspense and priority
+
+## 9 功能详解：Hooks

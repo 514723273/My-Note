@@ -959,3 +959,46 @@ import { withRouter } from 'react-router-dom';
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Detail));    //使用 withRouter 函数即可
 ```
+
+## 补充
+
+### React Ref 三种使用方式
+
+```js
+constructor() {
+  super();
+  this.objRef = React.createRef();    // 相当于 this.objRef = React.createRef();
+}
+
+componentDidMount() {
+  setTimeout(() => {
+    this.refs.stringRef.textContent = 'string ref got';
+    this.methodRef.textContent = 'method ref got';
+    this.objRef.textContent = 'obj ref got';
+  }, 1000);
+}
+
+render() {
+  return (
+    <div>
+      <p ref="stringRef">span1</p>                      // 下个版本将会废弃
+      <p ref={ele => {this.methodRef = ele}}>span2</p>  // 在 React 源码中没有很好的体现
+      <p ref={this.objRef}> span3 </p>
+    </div>
+  );
+}
+```
+
+### React context 的使用
+
+```js
+const { Provider, Consumer } = React.createContext('default');
+
+// 父组件
+<Provider value={this.state.newContext}>{this.props.children}</Provider>    // 传递属性 value
+
+// 子组件
+function Child1() {
+    return <Consumer>{value => <p>newContext: {value}</p>}</Consumer>
+}
+```
