@@ -11,6 +11,7 @@
   2. [详解CSS的float属性](./HTML&CSS&JS/详解CSS的float属性.md)
   3. [学习BFC](./HTML&CSS&JS/学习BFC.md)
   4. [前端面试-基础](./HTML&CSS&JS/前端面试-基础.md)
+  5. [Flex布局](./HTML&CSS&JS/Flex布局.md)
 - English
   1. [口语](./English/口语.md)
 - Other
