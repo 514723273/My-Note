@@ -16,3 +16,5 @@
   1. [口语](./English/口语.md)
 - Other
   1. [虚拟机搭建服务器](./Other/虚拟机搭建服务器.md)
+  2. [JS设计模式](./Other/JS设计模式.md)
+  3. [JavaScript写题注意事项](./Other/JavaScript写题注意事项.md)
