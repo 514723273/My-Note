@@ -2,6 +2,8 @@
 
 > [阮一峰---Flex 布局教程：实例篇](http://www.ruanyifeng.com/blog/2015/07/flex-examples.html)
 
+> [JailBreak---Flex 布局示例](http://static.vgee.cn/static/index.html)
+
 ## 1 Flex 布局是什么？
 
 意为"弹性布局"，用来为盒状模型提供最大的灵活性。
@@ -59,7 +61,7 @@
     - center：交叉轴的中点对齐。
     - baseline: 项目的第一行文字的基线对齐。
     - stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。
-6. align-content：属性定义了**多根轴线的对齐方式。**如果项目只有一根轴线，该属性不起作用。（所有item相对于容器）
+6. align-content：属性定义了**多根轴线的对齐方式**。如果项目只有一根轴线，该属性不起作用。（所有item相对于容器）
    - flex-start：与交叉轴的起点对齐。
    - flex-end：与交叉轴的终点对齐。
    - center：与交叉轴的中点对齐。
