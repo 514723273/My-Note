@@ -218,3 +218,9 @@ if(module.hot) {
     })
 }
 ```
+
+## 2.7 使用 Babel 处理 ES6 语法
+
+[babel 官网 webpack 配置](https://babeljs.io/setup#installation) 只翻译了一部分，比如 map 就没有继续翻译，低版本浏览器会不识别。
+
+[@babel/polyfill](https://babeljs.io/docs/en/babel-polyfill) 补充。
