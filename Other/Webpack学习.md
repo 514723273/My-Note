@@ -223,4 +223,49 @@ if(module.hot) {
 
 [babel 官网 webpack 配置](https://babeljs.io/setup#installation) 只翻译了一部分，比如 map 就没有继续翻译，低版本浏览器会不识别。
 
-[@babel/polyfill](https://babeljs.io/docs/en/babel-polyfill) 补充。
+[@babel/polyfill](https://babeljs.io/docs/en/babel-polyfill) 再次降低语法，连 map promise 都自己重新实现一遍。
+
+```js
+{
+    test: /\.js$/,
+    exclude: /node_module/,
+    loader: 'babel-loader',
+    options: {
+        presets: [
+            ['@babel/preset-env', {         // 使用这个才能让 babel-loader 翻译 es6
+                useBuiltIns: 'usage',       // 为了防止打包过大，只有当自己用到一些高级语法，才将对应的语法打包进去
+                targets: {
+                    chrome: '67',           // 是否有必要转换（chrome67以上就没必要了
+                }
+            }]
+        ]
+    }
+}
+```
+
+可以将 options 的语法抽离出来，放在 .babelrc 下。
+
+## 2.8  Webpack 实现对React框架代码的打包
+
+```js
+{
+    presets: [
+        [
+            '@babel/preset-env', {
+                useBuiltIns: 'usage',
+            }
+        ],
+        "@babel/preset-react",      // react    // 从右至左，先转义 react，再转义 es6
+    ]
+}
+```
+
+## 3 Webpack 的高级概念
+
+### 3.1 Tree Shaking 概念
+
+问题：比如在 math.js 中写了两个函数 add、minus，但是只使用了 add，但是打包却把两个函数的实现都打包进来。
+
+Tree Shaking 是只打包需要的代码部分。只支持 ES Module 引入（import）。
+
+package.json 添加 "sideEffects": ["*.css"]，排除不能被忽略的文件引入。（比如 import '@babel/polly-fill' import './style.css'）。~~webpack.config.js 添加 optimization: {usedExports: true}~~
