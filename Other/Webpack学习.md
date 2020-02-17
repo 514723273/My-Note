@@ -269,3 +269,37 @@ if(module.hot) {
 Tree Shaking 是只打包需要的代码部分。只支持 ES Module 引入（import）。
 
 package.json 添加 "sideEffects": ["*.css"]，排除不能被忽略的文件引入。（比如 import '@babel/polly-fill' import './style.css'）。~~webpack.config.js 添加 optimization: {usedExports: true}~~
+
+## 3.2 Develoment 和 Production 模式的区分打包
+
+```
+npm install webpack-merge -D
+// module.exports = merge(commonConfig, devConfig);
+```
+
+在根目录下三个文件`webpack.common.js`, `webpack.dev.js`和`webpack.prod.js`，在`package.json`中添加：
+```
+"script": {
+    "dev": "webpack-dev-server --config ./build/webpack.dev.js",
+    "build": "webpack --config ./build/webpack.prod.js",
+}
+```
+
+## 3.3 Webpack 和 Code Splitting
+
+如果不使用 Code Splitting：
+- 第三方库和业务逻辑代码都打包进一个文件，打包后的文件体积很大，加载时间长；
+- 第三方库基本不做修改，业务逻辑代码修改频繁；重新访问又要全部重新加载（因为只有一个打包文件，客户端缓存失效
+
+```js
+// 自动代码分割
+optimization: {
+    splitChuncks: {
+        chunks: 'all',
+    }
+},
+```
+
+## 3.4 Lazy Loading 懒加载，Chunk 是什么
+
+比如一个模块是只有在点击浏览器之后才会使用（import 语法），那一开始浏览器只加载 main.js 文件，当点击后，发送请求接收 vendors~lodash.js 文件。
