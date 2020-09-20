@@ -19,6 +19,7 @@
   1. [JavaScript 写题注意事项](./DataStructure&Algorithm/01.JavaScript写题注意事项.md)
 - English
   1. [口语](./English/01.口语.md)
+  2. [音标发音技巧笔记](./English/02.音标发音技巧笔记.md)
 - Other
   1. [虚拟机搭建服务器](./Other/01.虚拟机搭建服务器.md)
   2. [JS 设计模式](./Other/02.JS设计模式.md)
