@@ -65,8 +65,6 @@ typeof parseInt('0110', 2);     // "number"
 
 ASCII 码 → 字符：`String.fromCharCode(asciiValue)`
 
-
-
 ## 特殊字符
 
 ### 最大正整数表示
