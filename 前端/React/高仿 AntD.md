@@ -256,6 +256,25 @@ $body-color:                $gray-900 !default;
 $body-text-align:           null !default;
 ```
 
+## Upload 编码*
+
+### HTTP 请求历史
+
+- 原生 XHR（XMLHttpRequests）
+- $.ajax 封装了 XHR
+- Fetch 是 W3C 的新标准，看起来很美好，但是
+  - 只对网络请求报错，对 400，500 都当作成功的请求
+  - 默认不会带 cookie
+  - 不支持 abort，不支持超时控制
+  - 没有办法原生检测请求的进度
+- axios
+  - 在浏览器中是封装了 XHR
+  - 在 node.js 中封装了 http
+
+推荐两个用于测试`axios`的工具：[JSONPlaceholder](https://jsonplaceholder.typicode.com/) 和 [Mocky](https://designer.mocky.io/)
+
+## AutoComplete 编码*
+
 ## Button 编码
 
 ### 目录结构
@@ -591,7 +610,7 @@ npm adduser # 注册或登录
 ### 第一次发布流程
 
 1. 在`package.json`中添加必要的字段，具体见下例
-2. 在`package.json`中的`script`下新增钩子命令 `"prePublish": "npm run build"`。该命令会在 publish 前自动执行打包构建
+2. 在`package.json`中的`script`下新增钩子命令 `"prePublishOnly": "npm run build"`。该命令会在 publish 前自动执行打包构建
 3. 整理依赖，即只用于开发的都移入到`"devDependencies"`
 4. 使用`peerDependencies`（理由见下例），同时将`react`和`react-dom`也移入`"devDependencies"`
 5. 命令行输入`npm run publish`即可发布成功
@@ -637,7 +656,7 @@ npm adduser # 注册或登录
     "test": "react-scripts test", // 这个只在开发的时候用，不会返回最终的结果，处于一个 watch 模式下，随意需要做成和 lint 一样返回结果
     "test:nowatch": "cross-env CI=true react-scripts test", // cross-env 是一个依赖，跨平台统一命令
 	// 代码发布前，运行单元测试、lint 检查、打包编译
-    "prepublishOnly": "npm run test:nowatch && npm run lint && npm run build"
+    "prepublishOnly": "npm run test:nowatch && npm run lint && npm run build" // prepublish 将被废弃，因为在 npm install 也会自动运行，所以使用 prepublishOnly 替代。这个命令只有在命令行输入 npm run publish 才会运行
   },
 
   "eslintConfig": {
@@ -652,3 +671,47 @@ npm adduser # 注册或登录
   },
 ```
 
+## CI/CD
+
+### 概念
+
+上述发布过程经历两个步骤，一个是`npm run publish`，组件库通过代单元测试和 lint 检查，发布成功，还有一个是编译生成 stroybook 静态文件，上传至服务器，生成新的站点文档。
+
+这些都是手动顺序执行，容易出错，开发人员增多更是如此。
+
+- CI：即”持续集成“，频繁地将代码集成到 master。如此操作可以快速发现错误，防止分支大幅偏离主干，让团体快速迭代，保证项目质量。集成之前，必须通过所有测试。
+- CD：即”持续交付、持续部署“，频繁地将软件地新版本，交付给质量团队或者用户。代码通过评审之后，自动部署到生产环境。
+
+### 使用 travis 自动运行测试
+
+travis 主要是用于自动化测试和自动化部署（GithHub pages）。具体操作如下：
+
+- travis-ci.com 登录 github 账号，拿到 github 仓库的所有权限，可以在这个页面查看所有仓库
+- 在项目中添加`.travis.yml`，再提交
+- 添加文件上传后，会运行默认命令
+  - npm install or npm ci（ci 命令是通过 package-lock.json 来下载？然后和 package.json 对比验证？）
+  - npm test
+
+```yaml
+language: node_js
+node_js:
+  - "stable"
+cache:
+  directories:
+  - node_modules # 加快 build？
+env:
+  - CI=true # cross-env CI=true？
+
+# 以上是自动化测试
+# 以下是自动化部署 GitHub pages（会生成新的分支 gh-pages）
+
+script:
+  - npm run build-storybook
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $github_token（在 travis 站点中添加 github 生成的 token）
+  local_dir: storybook-static
+  on:
+    branch: master
+```
