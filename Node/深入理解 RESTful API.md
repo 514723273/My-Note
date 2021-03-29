@@ -106,8 +106,6 @@ app.use(usersRouter.routes());
 app.listen(3000);
 ```
 
-
-
 ## 其他
 
 ### HTTP options 方法的作用是什么？
