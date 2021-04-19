@@ -157,7 +157,7 @@ Jim Henson, creato<u>r o</u>~~f~~ The Muppets---from Kermit the Frog to Sesame S
 - from A to Z, 这里表示各种各样的角色
 - Greenville: /'ɡri:nvil/, n. 格林维尔（美国城市）
 
-## [12. asian tiger mosquitos](https://www.bilibili.com/video/BV1U7411a7xG?p=14&spm_id_from=pageDriver)
+## [13. asian tiger mosquitoes](https://www.bilibili.com/video/BV1U7411a7xG?p=14&spm_id_from=pageDriver)
 
 Asian tiger mosquitoes are native to the tropics of Southeast Asia, **bu<u>t i</u>n ~~th~~e pas~~t~~ few years**, they've spread all across the southeastern United States.
 
@@ -170,3 +170,67 @@ Asian tiger mosquitoes are native to the tropics of Southeast Asia, **bu<u>t i</
 - southeastern: ˌsaʊˈθistərn, 东南的，东南部的
 - 它们遍布美国东南部
 
+## [14. cats reputedly have 9 lives](https://www.bilibili.com/video/BV1U7411a7xG?p=15&spm_id_from=pageDriver)
+
+Cats reputedly have 9 lives, and he clearly wan~~t~~e~~d~~ to spen<u>d a</u>~~t~~ least one o~~f~~ them (uh) here in New York City.
+
+
+
+- reputedly: /ri'pju:tidli/, 据说
+- clearly: 显然
+- wanted to: 发音为 wan ne d, to 发 d' 音, 然后前面的的 ed 与 to 同音, 省略
+- at least: l cancel the t, elis （好像有另一个发音 ət）
+
+## [15. [21/04/06] The frantic pacing ](https://www.bilibili.com/video/BV1U7411a7xG?p=16&spm_id_from=pageDriver)
+
+The frantic pacing --- scene change<u>s e</u>ver<u>y 1</u>1 second<u>s o</u><u>n a</u>verage --- often leaves kids zone<u>d o</u>u<u>t a</u>nd spun up; unable *to* concentrate.
+
+
+
+- no consonant: /'kɑnsənənt/, 没有辅音
+- frantic: /'fræntɪk/, 疯狂的, 快速的; 这里指镜头切换非常快, 节奏非常快
+- pacing: 步调
+- 插入语
+- zone out: 走神了, 失神了, 呆滞了
+- spin up: 弄糊涂了; 类似 wind up, 上发条, 走神积蓄崩溃点, 然后忽然崩溃了(想想老师的表演, 转手表, 表情呆滞, 忽然爆发)
+- concentrate: /'kɑnsn'tret/, 集中
+- unable to: to 发 d' 
+
+## [16. [21/04/08] sencond typhoon](https://www.bilibili.com/video/BV1U7411a7xG?p=17&spm_id_from=pageDriver)
+
+ Battered, soaked and flooded; the Philippine<u>s i</u>s being hit b<u>y its s</u>econ~~d~~ typhoon i<u>n a</u> week.
+
+
+
+- battered: /'bætɚd/, 受到虐待的, 连续猛击, 最后一个 d 短急促
+- soaked: /so~~k~~t/, 湿透的, coach shane 基本没有发 k 的音
+- flooded: /flʌdid/, 被水淹的
+- Philippines: /'filipi:nz/, n. (用作单)菲律宾
+
+## [17. [21/04/09] stray dogs](https://www.bilibili.com/video/BV1U7411a7xG?p=18)
+
+A few years ago they were though~~t~~ to be useless --- pa<u>s~~t~~ th</u>eir prime --- not now!
+
+
+
+- 这里的 they 指 stray dogs, /stre/, 走失的狗
+- thought to: ou 的时候嘴巴向下, t 省略, 这里发 tu
+- past their prime: /pæst/, 这边的 s 很强, 更快一点把 t 和 th 都省略, 可以连起来发 pas are
+- in your prime: the best years of your life, 人生巅峰时期
+
+## [18. [21/04/10] get up and get going](https://www.bilibili.com/video/BV1U7411a7xG?p=19&spm_id_from=pageDriver)
+
+I<u>f y</u>o<u>u a</u>re breathing, it is not too late. Get up and get going!
+
+
+
+- if you are: it sounds like 'few', (w)are
+- get up and: get ubən
+
+
+
+# 额外练习
+
+- You make a million decisions that mean nothing. And then one day, you order takeout, and it changes your life.
+- 你每天都在做很多看似毫无意义的决定，但某天你的某个决定（order takeout本来是点个外卖，就可以理解成那种像点外卖一样不经意的一件小事）说不定能改变你的一生
+- not at all
