@@ -227,7 +227,44 @@ I<u>f y</u>o<u>u a</u>re breathing, it is not too late. Get up and get going!
 - if you are: it sounds like 'few', (w)are
 - get up and: get ubən
 
+## [19. [21/06/05] has been found alive](https://www.bilibili.com/video/BV1U7411a7xG?p=20)
 
+A 67-year-old grandpa has been found alive after being stuck for 6 days at the bottom of a ravine.
+
+
+
+- seven-year：nyear，连读
+- grandpa：n cancel the d
+- being stuck：it means to be in a place or you cannot leave（被困）
+- for：听起来是 fur（fer）
+- ravine：[rə'viːn]，沟壑（两座山之间，有条小河）
+- days at the bottom of a ravine：连读 & of a ravine 读的是 eravin
+
+## [20. [21/06/20] Hedi cute look](https://www.bilibili.com/video/BV1U7411a7xG?p=22)
+
+Heidi won the world over with her forever cute but slightly confused look.
+
+
+
+- Heidi 永远可爱，但是带有些许困惑的模样，赢得了全世界的喜爱。
+- won the world over: 赢得了全世界
+- with her:  h 不发音
+- slightly: 遇见 ly，t 不发音
+- confused look: d 不发音；look 等于 apearance、expression（表情）
+
+## [20. [21/07/03] The project to put them online](https://www.bilibili.com/video/BV1U7411a7xG?p=23&spm_id_from=pageDriver)
+
+The project to put them online is expected to be completed by 2016.
+
+
+
+- project to：t'e 音；similar sounds are connected
+- pu<u>t th</u>e<u>m on</u>li<u>ne i</u><u>s e</u>xpecte~~d~~ to：t 不发音；online an 音，而不是 on；to 发 t‘e（好像又有点 d'e）
+- 这里的 them 指的是 The Dead Sea Scrolls（死海文书）
+- is expected to = is thoght to = is anticipated to；预计、将要
+- completed：ken；t 发 d lidid
+- completed = finished = done
+- 这期连读好难🤯；is expected to 常见词汇；isi kesbecti de
 
 # 额外练习
 
