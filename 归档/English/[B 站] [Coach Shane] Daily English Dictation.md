@@ -265,9 +265,3 @@ The project to put them online is expected to be completed by 2016.
 - completed：ken；t 发 d lidid
 - completed = finished = done
 - 这期连读好难🤯；is expected to 常见词汇；isi kesbecti de
-
-# 额外练习
-
-- You make a million decisions that mean nothing. And then one day, you order takeout, and it changes your life.
-- 你每天都在做很多看似毫无意义的决定，但某天你的某个决定（order takeout本来是点个外卖，就可以理解成那种像点外卖一样不经意的一件小事）说不定能改变你的一生
-- not at all
