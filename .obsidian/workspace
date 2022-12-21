@@ -1,0 +1,110 @@
+{
+  "main": {
+    "id": "470aeab395c14f1a",
+    "type": "split",
+    "children": [
+      {
+        "id": "70807da5f8eba647",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "后端/[2] Java 数据库.md",
+            "mode": "source",
+            "source": false
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "a95f1e16262017e4",
+    "type": "split",
+    "children": [
+      {
+        "id": "79f7e12a45ed6412",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "bafbd46d6d608c5e",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "58fb066a984c1dd7",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "d017eaa66b06a292",
+    "type": "split",
+    "children": [
+      {
+        "id": "5551462b7ff99d2e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5b5259cea4e7fb84",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "后端/[2] Java 数据库.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "6daad2373e6795bb",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "后端/[2] Java 数据库.md"
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "horizontal",
+    "width": 232
+  },
+  "active": "70807da5f8eba647",
+  "lastOpenFiles": [
+    "后端/[2] Java 数据库.md",
+    "后端/小笔记.md",
+    "生活贴士/键盘连接.md",
+    "后端/[1] Java Web.md",
+    "后端/[0] Java 语法.md",
+    "后端/image-20220202102038527.png",
+    "后端/assets/image-20220202102250156.png"
+  ]
+}
